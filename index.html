@@ -17,34 +17,39 @@
         </p>
 
         <div class="flex justify-center gap-4">
-            <a href="https://github.com/Ultanshq" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-semibold transition">
-                GitHub
-            </a>
-            <a href="mailto:sultandan216@gmail.com" class="border border-slate-700 hover:bg-slate-800 px-6 py-2 rounded-full font-semibold transition">
-                Kontak Saya
-            </a>
+            <a href="https://github.com/Ultanshq" target="_blank" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-semibold transition">GitHub</a>
+            <a href="mailto:sultandan216@gmail.com" class="border border-slate-700 hover:bg-slate-800 px-6 py-2 rounded-full font-semibold transition">Kontak Saya</a>
         </div>
     </div>
 
-    <div class="mt-16 text-center">
-        <h2 class="text-2xl font-semibold mb-6 text-slate-300">Tech Stack</h2>
-        <div class="flex flex-wrap justify-center gap-4">
-            <span class="bg-slate-800 px-4 py-1 rounded-full text-blue-400">Linux</span>
-            <span class="bg-slate-800 px-4 py-1 rounded-full text-blue-400">Git</span>
-            <span class="bg-slate-800 px-4 py-1 rounded-full text-blue-400">Cloud Computing</span>
-            <span class="bg-slate-800 px-4 py-1 rounded-full text-blue-400">HTML/CSS</span>
-        </div>
+    <div class="mt-16 text-slate-500">
+        Total Pengunjung: <span id="visitor-count" class="font-bold text-emerald-400">Menghitung...</span>
     </div>
 
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-    <title>Cloud Resume</title>
-</head>
-<body>
-    <h1>Selamat Datang di Portofolio Cloud Saya</h1>
-    <p>Nama: [Nama Kamu]</p>
-    <p>Role: Aspirant Cloud Engineer</p>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAE-X9fDL9m0lZp9bgUoUMfmF0FF-r-ucw",
+            authDomain: "cloud-resume-stats.firebaseapp.com",
+            projectId: "cloud-resume-stats",
+            storageBucket: "cloud-resume-stats.firebasestorage.app",
+            messagingSenderId: "912524500120",
+            appId: "1:912524500120:web:1de4d503a7ec8ef687c4ed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const counterRef = doc(db, "stats", "visitors");
+        
+        // Update & Fetch
+        updateDoc(counterRef, { count: increment(1) }).then(() => {
+            getDoc(counterRef).then((snap) => {
+                document.getElementById("visitor-count").innerText = snap.data().count;
+            });
+        });
+    </script>
 </body>
 </html>
