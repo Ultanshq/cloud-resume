@@ -23,7 +23,7 @@
     </div>
 
     <div class="mt-16 text-slate-500">
-        Total Pengunjung: <span id="visitor-count" class="font-bold text-emerald-400">Menghitung...</span>
+        Total Pengunjung: <span id="visitor-count" class="font-bold text-emerald-400">Loading...</span>
     </div>
 
     <script type="module">
@@ -44,7 +44,6 @@
 
         const counterRef = doc(db, "stats", "visitors");
         
-        // Update & Fetch
         updateDoc(counterRef, { count: increment(1) }).then(() => {
             getDoc(counterRef).then((snap) => {
                 document.getElementById("visitor-count").innerText = snap.data().count;
